@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/extras/java8">
+    <head>
+        <!-- Metadata -->
+        <meta charset="UTF-8">
+        <title>Hotel Bookings</title>
+        
+        <!-- External CSS -->
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link rel="stylesheet" href="../static/css/style.css">
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Header -->
+        <header>BOOKINGS PAGE</header>
+
+        <!-- Navigation Bar -->
+        <div class="navbar">
+            <a href="/rooms">Rooms</a>
+            <a href="/customers">Customers</a>
+            <a href="/bookings">Bookings</a>
+            <a href="/services">Services</a>
+        </div>
+
+        <!-- Main Container -->
+        <div class="container2">
+            <!-- Subcontainer for Available Rooms -->
+            <div class="subContatiner">
+                <div class="miniHead">
+                    <!-- Icon and Title -->
+                    <img class="icon" src="../images/beds-512.webp" alt="">
+                    <h1>Rooms Available</h1>
+                </div>
+                
+                <!-- Table for Available Rooms -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Room Type</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data Rows for Available Rooms -->
+                        <tr th:each="booking : ${availableBookings}">
+                            <td th:text="${booking.roomNumber}"></td>
+                            <td th:text="${booking.type}"></td>
+                            <td th:text="${booking.price}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Subcontainer for Booked Rooms -->
+            <div class="subContatiner">
+                <div class="miniHead">
+                    <!-- Icon and Title -->
+                    <img class="icon" src="../images/376090-200.png" alt="">
+                    <h1>Booked Rooms</h1>
+                </div>
+            
+                <!-- Table for Booked Rooms -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Room Number</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <!-- <th>Selected Services</th> -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data Rows for Booked Rooms -->
+                        <tr th:each="booking : ${allBookings}">
+                            <td th:text="${booking.customerId}"></td>
+                            <td th:text="${booking.roomId}"></td>
+                            <td th:text="${booking.startDate}"></td>
+                            <td th:text="${booking.endDate}"></td>
+                            <!-- 
+                            <td>
+                                <div th:each="services : ${booking.selectedServices}">
+                                    <span th:text="${service.name}"></span>
+                                </div>
+                            </td>
+                            -->
+                            <td>
+                                <!-- Form for Unbooking -->
+                                <form id="unbookForm" th:action="@{/bookings/unbook/{id}(id=${booking.id})}" method="post">
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <input type="submit" value="Unbook" onclick="return confirm('Are you sure you want to unbook this room?');" />
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Subcontainer for Booking a Room -->
+            <div class="subContatiner">
+                <div class="miniHead">
+                    <!-- Icon and Title -->
+                    <img class="icon" src="../images/1021592-200.png" alt="">
+                    <h1>Book A Room</h1>
+                </div>
+
+                <!-- Form for Booking a Room -->
+                <form action="/bookings/book" method="post">
+                    <label for="customerId">Customer ID:</label>
+                    <input type="text" id="customerId" name="customerId" placeholder="Please Enter Your Customer ID:" required><br>
+                    
+                    <label for="roomId">Room ID:</label>
+                    <input type="text" id="roomId" name="roomId" placeholder="Please Enter Your Room ID:" required><br>
+                    
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" required><br>
+                    
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" required><br>
+                    
+                    <!-- 
+                    <label for="services">Select Services:</label><br>
+                    <div th:each="service : ${services}">
+                        <input type="checkbox" th:id="${'service_' + service.id}" th:name="services" th:value="${service.id}">
+                        <label th:for="${'service_' + service.id}" th:text="${service.name}"></label><br>
+                    </div>
+                    -->
+                    <input type="submit" value="Book Room">
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <!-- Box for University and Course Information -->
+            <div class="box">
+                <p>Ontario Tech University</p>
+                <p>Web Development</p>
+                <p>CSCI 3230U</p>
+                <p>Final Project</p>
+            </div>
+            <!-- Box for Contributors -->
+            <div class="box">
+                <p>Sammak Ahmed</p>
+                <p>Bilal Nazar</p>
+                <p>Russell Ngo</p>
+                <p>Sandeep Virk</p>
+                <p>Jared Batallones</p>
+            </div>
+        </footer>
+    </body>
+</html>

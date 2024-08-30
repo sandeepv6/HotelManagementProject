@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hotel Customers</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link rel="stylesheet" href="../static/css/style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        
+        <header>CUSTOMERS PAGE</header>
+
+        <div class="navbar">
+            <!-- <a class="active" href="#">Home</a> -->
+            <a href="/rooms">Rooms</a>
+            <a href="/customers">Customers</a>
+            <a href="/bookings">Bookings</a>
+            <a href="/services">Services</a>
+        </div>
+        
+        <div class="container2">
+
+            <div class="subContatiner">
+
+                <div class="miniHead">
+                    <img class="icon" src="../images/people-icon-sign-symbol-design-free-png.webp" alt="">
+                    <h1>Hotel Customers</h1>
+                </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${customers}">
+                    	<td th:text="${customer.id}"></td>
+                        <td th:text="${customer.name}"></td>
+                        <td th:text="${customer.phoneNumber}"></td>
+                        <td th:text="${customer.email}"></td>
+                    
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            <div class="subContatiner">
+
+                <div class="miniHead">
+                    <img class="icon" src="../images/person-icon-2048x2048-wiaps1jt.png" alt="">
+                    <h1>Customer Information</h1>
+                </div>
+    
+                <form action="/customers/cust" method="post">
+					<label for="name">Customer Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Please Enter Your Name:" required><br>
+                    
+                    <label for="phoneNumber">Customer Phone Number:</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Please Enter Your Phone Number:" required><br>
+                    
+                    <label for="email">Customer Email:</label>
+                    <input type="text" id="email" name="email" placeholder="Please Enter Your Email" required><br>
+                    
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+            
+        </div>
+
+        <footer>
+            <div class="box">
+                <p>Ontario Tech University</p>
+                <p>Web Development</p>
+                <p>CSCI 3230U</p>
+                <p>Final Project</p>
+            </div>
+            <div class="box">
+                <p>Sammak Ahmed</p>
+                <p>Bilal Nazar</p>
+                <p>Russell Ngo</p>
+                <p>Sandeep Virk</p>
+                <p>Jared Batallones</p>
+            </div>
+        </footer>
+
+    </body>
+</html>
